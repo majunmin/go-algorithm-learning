@@ -3,7 +3,7 @@
   @date: 2021/1/10
   @note:
 **/
-package _063_UniquePathWithObstacle
+package leetcode_063
 
 func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	// 防止开局第一个是石头

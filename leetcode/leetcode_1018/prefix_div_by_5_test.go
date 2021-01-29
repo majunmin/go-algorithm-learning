@@ -3,7 +3,7 @@
   @date: 2021/1/14
   @note:
 **/
-package _018_PrefixesDivBy5
+package leetcode_1018
 
 import (
 	"fmt"

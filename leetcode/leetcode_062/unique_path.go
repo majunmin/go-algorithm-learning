@@ -3,7 +3,7 @@
   @date: 2021/1/10
   @note:
 **/
-package _062_UniquePath
+package leetcode_062
 
 /**
 

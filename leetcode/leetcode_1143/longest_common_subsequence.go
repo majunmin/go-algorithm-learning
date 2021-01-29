@@ -3,7 +3,7 @@
   @date: 2021/1/11
   @note:
 **/
-package _143_LongestCommonSubsequence
+package leetcode_1143
 
 /**
 1143. 最长公共子序列

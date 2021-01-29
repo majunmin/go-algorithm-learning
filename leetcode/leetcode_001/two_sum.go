@@ -3,7 +3,7 @@
   @date: 2020/12/2
   @note:
 **/
-package _001_TwoSum
+package leetcode_001
 
 import (
 	"sort"
