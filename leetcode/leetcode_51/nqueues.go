@@ -6,7 +6,7 @@
 package leetcode_51
 
 func solveNQueens(n int) [][]string {
-	//solveNQueens1(n)
+	//return solveNQueens1(n)
 	return solveNQueens2(n)
 }
 
@@ -47,7 +47,7 @@ func backtrace2(board [][]byte, curIdx int, colSet map[int]struct{}, pieSet map[
 
 	whiteRow := generateRow(n)
 	for i := 0; i < n; i++ {
-		if isValid(board, curIdx, i, colSet, pieSet, naSet) {
+		if isValid(curIdx, i, colSet, pieSet, naSet) {
 			whiteRow[i] = 'Q'
 			board[curIdx] = whiteRow
 			colSet[i] = struct{}{}
@@ -65,17 +65,16 @@ func backtrace2(board [][]byte, curIdx int, colSet map[int]struct{}, pieSet map[
 
 }
 
-func isValid(board [][]byte, row int, col int, colSet map[int]struct{}, pieSet map[int]struct{}, naSet map[int]struct{}) bool {
-	_, ok1 := colSet[col]
-	if ok1 {
+func isValid(row int, col int, colSet map[int]struct{}, pieSet map[int]struct{}, naSet map[int]struct{}) bool {
+	if _, ok := colSet[col]; ok {
 		return false
 	}
-	_, ok2 := pieSet[row+col]
-	if ok2 {
+
+	if _, ok := pieSet[row+col]; ok {
 		return false
 	}
-	_, ok3 := naSet[row-col]
-	if ok3 {
+
+	if _, ok := naSet[row-col]; ok {
 		return false
 	}
 	return true
@@ -84,40 +83,33 @@ func isValid(board [][]byte, row int, col int, colSet map[int]struct{}, pieSet m
 func solveNQueens1(n int) [][]string {
 	var result [][]string
 	board := make([][]byte, n)
-	// init board
-	for i := 0; i < n; i++ {
-		board[i] = make([]byte, n)
-		for j := 0; j < n; j++ {
-			board[i][j] = '.'
-		}
-	}
-
 	backtrace(board, 0, &result)
 
 	return result
 }
 
 // 回溯算法
-func backtrace(board [][]byte, curIdx int, result *[][]string) {
-	if curIdx == len(board) {
+func backtrace(board [][]byte, level int, result *[][]string) {
+	n := len(board)
+	if level == n {
 		saveInRes(board, result)
 		return
 	}
 
-	curRow := generateRow(len(board[0]))
+	whiteRow := generateRow(n)
 
 	// for choice in choiceList
 	//     do choice
 	//     backtrace
 	//     revert choice
-	for i := 0; i < len(board[0]); i++ {
-		curRow[i] = 'Q'
-		if validate(curIdx, i, board) {
-			board[curIdx] = curRow
-			backtrace(board, curIdx+1, result)
+	for i := 0; i < n; i++ {
+		whiteRow[i] = 'Q'
+		if validate(level, i, board) {
+			board[level] = whiteRow
+			backtrace(board, level+1, result)
 		}
 		// revert
-		curRow[i] = '.'
+		whiteRow[i] = '.'
 	}
 }
 
@@ -130,6 +122,9 @@ func generateRow(len int) []byte {
 }
 
 func validate(row int, col int, board [][]byte) bool {
+	if row == 0 {
+		return true
+	}
 	// validate col
 	for i := 0; i < row; i++ {
 		if board[i][col] == 'Q' {
@@ -138,13 +133,13 @@ func validate(row int, col int, board [][]byte) bool {
 	}
 
 	// validate pie
-	for i, j := row, col; i >= 0 && j < len(board); i, j = i-1, j+1 {
+	for i, j := row-1, col+1; i >= 0 && j < len(board); i, j = i-1, j+1 {
 		if board[i][j] == 'Q' {
 			return false
 		}
 	}
 	// validate na
-	for i, j := row, col; i >= 0 && j >= 0; i, j = i-1, j-1 {
+	for i, j := row-1, col-1; i >= 0 && j >= 0; i, j = i-1, j-1 {
 		if board[i][j] == 'Q' {
 			return false
 		}
@@ -158,19 +153,4 @@ func saveInRes(board [][]byte, result *[][]string) {
 		res = append(res, string(row))
 	}
 	*result = append(*result, res)
-}
-
-func generateRows(n int) [][]byte {
-	res := make([][]byte, n)
-	for i := 0; i < n; i++ {
-		row := make([]byte, n)
-		for j := 0; j < n; j++ {
-			if i == j {
-				row[j] = 'Q'
-			}
-			row[j] = '.'
-		}
-		res = append(res, row)
-	}
-	return res
 }
