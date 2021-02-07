@@ -5,9 +5,75 @@
 **/
 package leetcode_51
 
+// 有个公式需要记住  方便分析 位运算 和 后面的 set 解法
+//  na = n - 1 - row + col
+//  shu = col
+//  pie = row + col
+// https://zhuanlan.zhihu.com/p/22846106
 func solveNQueens(n int) [][]string {
 	//return solveNQueens1(n)
-	return solveNQueens2(n)
+	//return solveNQueens2(n)
+	//return solveNQueens3(n)
+	return bitSolution1(n)
+}
+
+// shu 冲突位置 shu
+// pie 冲突位置 pie >> row
+// na 冲突位置  na  >> n-1-row
+func bitSolution1(n int) [][]string {
+	result := make([][]string, 0)
+	board := make([][]byte, n)
+	shu, pie, na := 0, 0, 0
+	dfs(0, n, shu, pie, na, board, &result)
+	return result
+}
+
+// 用 位运算 代替  set
+func dfs(level int, n int, shu, pie, na int, board [][]byte, result *[][]string) {
+	if level == n {
+		saveInRes(board, result)
+		return
+	}
+
+	whiteRow := generateRow(n)
+	for col := 0; col < n; col++ {
+		j := level + col
+		k := n - 1 - level + col
+
+		// 表示该位已经被占用
+		if (shu>>col|pie>>j|na>>k)&1 == 1 {
+			continue
+		}
+		shu |= 1 << col
+		pie |= 1 << (level + col)
+		na |= 1 << (n - 1 - level + col)
+		whiteRow[col] = 'Q'
+		board[level] = whiteRow
+
+		dfs(level+1, n, shu, pie, na, board, result)
+
+		whiteRow[col] = '.'
+		board[level] = nil
+		shu &= ^(1 << col)
+		pie &= ^(1 << (level + col))
+		na &= ^(1 << (n - 1 - level + col))
+	}
+
+}
+
+var solutions [][]string
+
+func generateBoard(queens []int, n int) []string {
+	board := []string{}
+	for i := 0; i < n; i++ {
+		row := make([]byte, n)
+		for j := 0; j < n; j++ {
+			row[j] = '.'
+		}
+		row[queens[i]] = 'Q'
+		board = append(board, string(row))
+	}
+	return board
 }
 
 func solveNQueens2(n int) [][]string {

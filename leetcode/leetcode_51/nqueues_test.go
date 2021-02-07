@@ -12,4 +12,7 @@ import (
 
 func TestNqueues(t *testing.T) {
 	fmt.Println(solveNQueens(4))
+
+	i := int8(-128)
+	fmt.Println(i)
 }
