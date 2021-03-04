@@ -20,8 +20,8 @@ var (
 )
 
 func numIslands(grid [][]byte) int {
-	//return solution(grid)
-	return unionset(grid)
+	return solution(grid)
+	//return unionset(grid)
 }
 
 // 并查集

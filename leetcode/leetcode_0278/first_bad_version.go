@@ -3,7 +3,7 @@
   @date: 2021/2/9
   @note:
 **/
-package leetcode_278
+package leetcode_0278
 
 var ver = 4
 
@@ -16,13 +16,13 @@ var ver = 4
  */
 
 func firstBadVersion(n int) int {
-	left, right := 0, n
+	left, right := 1, n
 	for left < right {
-		mid := (left + right + 1) / 2
+		mid := left + (right-left+1)>>2
 		if isBadVersion(mid) {
-			right = mid - 1
+			right = mid
 		} else {
-			left = mid
+			left = mid + 1
 		}
 	}
 	return left

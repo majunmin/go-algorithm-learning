@@ -10,29 +10,27 @@ func QuickSort(arr []int) []int {
 	return arr
 }
 
-func quickSort(arr []int, start, end int) {
-	if start >= end {
+func quickSort(arr []int, left int, right int) {
+	if left >= right {
 		return
 	}
-
-	partIdx := partition(arr, start, end)
-	quickSort(arr, start, partIdx-1)
-	quickSort(arr, partIdx+1, end)
+	midIdx := partition(arr, left, right)
+	quickSort(arr, left, midIdx-1)
+	quickSort(arr, midIdx+1, right)
 }
 
-// 找到 arr start 到 end 区间 的一个中间索引,左边的值都比 arr[cnt] 的值小， 右边的都比 arr[cnt] 的值大
-func partition(arr []int, start int, end int) int {
-	// 选中一个标的物
-	pivot := end
-	cnt := start
+//partition 找到 arr left 到 right 区间 的一个中间索引,左边的值都比 arr[cnt] 的值小， 右边的都比 arr[cnt] 的值大
+func partition(arr []int, left int, right int) int {
 
-	for i := start; i < end; i++ {
+	pivot := right
+	cnt := left
+	for i := left; i < right; i++ {
 		if arr[i] < arr[pivot] {
 			arr[i], arr[cnt] = arr[cnt], arr[i]
 			cnt++
 		}
 	}
-	arr[pivot], arr[cnt] = arr[cnt], arr[pivot]
+	arr[cnt], arr[pivot] = arr[pivot], arr[cnt]
 	return cnt
 }
 

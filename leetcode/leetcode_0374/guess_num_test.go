@@ -3,7 +3,7 @@
   @date: 2021/2/9
   @note:
 **/
-package leetcode_374
+package leetcode_0374
 
 import (
 	"fmt"
@@ -27,4 +27,11 @@ func TestDmo(t *testing.T) {
 	//fmt.Println(num2)
 	//fmt.Println(num2>>3)
 	//fmt.Printf("%X\n", num2>>3)
+
+}
+
+func TestDemo2(t *testing.T) {
+
+	fmt.Println(guessNumber(1))
+
 }

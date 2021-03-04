@@ -24,6 +24,7 @@ func NewUnionFind(count int) *UnionFind {
 // 找到 顶层root节点
 func (uf *UnionFind) Find(p int) int {
 	for p != uf.parent[p] {
+		// 这行语句是为了 压扁结构，加速Find 查找 ==  1 <- 2 <- 3   to  2 -> 1 <- 3
 		uf.parent[p] = uf.parent[uf.parent[p]]
 		p = uf.parent[p]
 	}

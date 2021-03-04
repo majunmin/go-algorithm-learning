@@ -3,7 +3,7 @@
   @date: 2021/2/9
   @note:
 **/
-package leetcode_374
+package leetcode_0374
 
 /**
 -- 题目看了半天...
@@ -18,23 +18,19 @@ https://leetcode-cn.com/problems/guess-number-higher-or-lower/
 */
 // 时间复杂度  O(lgN)
 // 空间复杂度  O(1)  没有使用额外的空间
-var pick = 2
+var pick = 1
 
 func guessNumber(n int) int {
 	left, right := 1, n
-	for left <= right {
-		mid := (left + right) >> 1
-		res := guess(mid)
-		if res == 0 {
-			return mid
-		}
-		if res > 0 {
+	for left < right {
+		mid := left + (right-left)/2
+		if guess(mid) == 1 {
 			left = mid + 1
 		} else {
-			right = mid - 1
+			right = mid
 		}
 	}
-	return -1
+	return left
 }
 
 func guess(target int) int {

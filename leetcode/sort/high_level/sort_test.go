@@ -11,7 +11,7 @@ import (
 )
 
 func TestQuickSort(t *testing.T) {
-	arr := []int{3, 7, 1, 2, 9, 11, 8}
+	arr := []int{3, 7, 1, 2, 2, 9, 0, 11, 8}
 	QuickSort(arr)
 	fmt.Println(arr)
 }

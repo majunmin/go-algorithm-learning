@@ -3,7 +3,7 @@
   @date: 2021/2/6
   @note:
 **/
-package leetcode_338
+package leetcode_0338
 
 func countBits(num int) []int {
 	result := make([]int, num+1)
