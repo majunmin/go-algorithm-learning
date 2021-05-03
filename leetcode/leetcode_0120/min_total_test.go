@@ -3,7 +3,7 @@
   @date: 2021/1/16
   @note:
 **/
-package leetcode_120
+package leetcode_0120
 
 import (
 	"fmt"

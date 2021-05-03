@@ -3,7 +3,7 @@
   @date: 2021/1/16
   @note:
 **/
-package leetcode_120
+package leetcode_0120
 
 func minimumTotal(triangle [][]int) int {
 	return minTotalDP2(triangle)
@@ -28,7 +28,7 @@ func minTotalDP2(triangle [][]int) int {
 func minTotalDP(triangle [][]int) int {
 	for i := len(triangle) - 2; i >= 0; i-- {
 		for j := 0; j < len(triangle[i]); j++ {
-			triangle[i][j] = minInt(triangle[i+1][j], triangle[i+1][j+1]) + triangle[i][j]
+			triangle[i][j] = minInt (triangle[i+1][j], triangle[i+1][j+1]) + triangle[i][j]
 		}
 	}
 	return triangle[0][0]

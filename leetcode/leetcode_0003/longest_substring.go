@@ -7,9 +7,7 @@ package leetcode_0003
 
 // https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
 func lengthOfLongestSubstring(s string) int {
-
 	return solution2(s)
-
 }
 
 // 解法1的优化
@@ -42,7 +40,6 @@ func solution1(s string) int {
 
 	rk, length, result := -1, len(s), 0
 	for left, b := range sVec {
-
 		for rk+1 < length && set[sVec[rk+1]] == 0 {
 			set[sVec[rk+1]] = 1
 			rk++

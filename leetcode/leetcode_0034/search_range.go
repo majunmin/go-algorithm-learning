@@ -3,7 +3,7 @@
   @date: 2021/2/10
   @note:
 **/
-package leetcode_34
+package leetcode_0034
 
 // 排序数组中查找 target 出现的 开始和结束位置
 func searchRange(nums []int, target int) []int {
@@ -26,31 +26,29 @@ func rangeSearch(nums []int, target int) []int {
 }
 
 func searchRight(nums []int, target int) int {
-	length := len(nums)
-	left, right := 0, length-1
+	left, right := 0, len(nums)
 	for left < right {
-		mid := (left + right + 1) >> 1
-		if nums[mid] <= target {
-			left = mid
-		} else {
+		mid := left + (right-left+1)>>1
+		if nums[mid] > target {
 			right = mid - 1
+		} else {
+			left = mid
 		}
 	}
-	return right
+	return left
 }
 
 func searchLeft(nums []int, target int) int {
-	length := len(nums)
-	left, right := 0, length-1
+	left, right := 0, len(nums)
 	for left < right {
-		mid := (left + right) >> 1
+		mid := left + (right-left)>>1
 		if nums[mid] < target {
 			left = mid + 1
 		} else {
 			right = mid
 		}
 	}
-	return right
+	return left
 }
 
 func byMe(nums []int, target int) []int {

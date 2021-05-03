@@ -5,8 +5,13 @@
 **/
 package leetcode_70
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestClimbStatirs(t *testing.T) {
-	climbStairs(2)
+	fmt.Println(climbStairs(1))
+	fmt.Println(climbStairs(2))
+	fmt.Println(climbStairs(5))
 }
