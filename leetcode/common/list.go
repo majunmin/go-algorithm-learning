@@ -5,7 +5,18 @@
 **/
 package common
 
+import "fmt"
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+
+func DisPlayListNode(node *ListNode) {
+	var res []int
+	for node != nil {
+		res = append(res, node.Val)
+		node = node.Next
+	}
+	fmt.Println(res)
 }
