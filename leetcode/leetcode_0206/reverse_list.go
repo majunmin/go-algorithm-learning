@@ -11,32 +11,33 @@ import (
 
 // https://leetcode-cn.com/problems/reverse-linked-list/
 func reverseList(head *ListNode) *ListNode {
-	return dfsReverse(head)
+	return iterSolution(head)
 
 }
 
 func dfsReverse(head *ListNode) *ListNode {
 
-	if head.Next == nil {
+	// terminate condition
+	if head == nil || head.Next == nil {
 		return head
 	}
 
-	newNode := dfsReverse(head.Next)
+	// process
+	next := dfsReverse(head.Next)
 	head.Next.Next = head
 	head.Next = nil
-	return newNode
+	return next
 
 }
 
 func iterSolution(head *ListNode) *ListNode {
-	var newNode *ListNode
+	var prev *ListNode
 	curNode := head
 	for curNode != nil {
 		head = curNode.Next
-		curNode.Next = newNode
-		newNode = curNode
-
+		curNode.Next = prev
+		prev = curNode
 		curNode = head
 	}
-	return newNode
+	return prev
 }

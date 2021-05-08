@@ -7,8 +7,9 @@ package leetcode_0206
 
 import (
 	"fmt"
-	. "go-algorithm-learning/leetcode/common"
 	"testing"
+
+	. "go-algorithm-learning/leetcode/common"
 )
 
 func TestReverseList(t *testing.T) {
