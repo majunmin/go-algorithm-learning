@@ -3,7 +3,7 @@
   @date: 2021/1/25
   @note:
 **/
-package leetcode_200
+package leetcode_0200
 
 import (
 	"container/list"
