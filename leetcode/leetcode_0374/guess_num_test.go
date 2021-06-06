@@ -19,9 +19,9 @@ func TestDmo(t *testing.T) {
 	fmt.Printf("%b  , %d \n", num+1, num+1)
 	fmt.Printf("%b  , %d \n", 127, 127)
 
-	fmt.Printf("%X\n", num+2)
-	fmt.Printf("%X\n", num>>1)
-	fmt.Printf("%X\n", num>>3)
+	fmt.Printf("%b\n", num+2)
+	fmt.Printf("%b\n", num>>1)
+	fmt.Printf("%b\n", num>>3)
 
 	//num2 := uint32(0xFFFFFFFF)
 	//fmt.Println(num2)
@@ -32,6 +32,7 @@ func TestDmo(t *testing.T) {
 
 func TestDemo2(t *testing.T) {
 
-	fmt.Println(guessNumber(1))
+	fmt.Println(guessNumber(7))
+	fmt.Println(guessNumber(math.MaxInt32))
 
 }

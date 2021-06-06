@@ -32,10 +32,10 @@ func postOrderIter(root *common.TreeNode) []int {
 			result = append(result, node.Val)
 			lastNode = node
 			node = nil
-			continue
+		} else {
+			stack = append(stack, node)
+			node = node.Right
 		}
-		stack = append(stack, node)
-		node = node.Right
 	}
 	return result
 }

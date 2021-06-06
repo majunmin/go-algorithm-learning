@@ -50,3 +50,48 @@ func threeSum(nums []int) [][]int {
 	}
 	return result
 }
+
+func threeSum2(nums []int) [][]int {
+
+	var result [][]int
+	length := len(nums)
+	if length < 3 {
+		return result
+	}
+
+	// sort
+	sort.Ints(nums)
+
+	for i := 0; i < length; i++ {
+		num := nums[i]
+		if num > 0 {
+			return result
+		}
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+
+		// 判断 双指针判断  两数之和
+		l, r := i+1, length-1
+		for l < r {
+			if l < r && nums[l]+nums[r]+num > 0 {
+				r--
+			}
+			if l < r && nums[l]+nums[r]+num < 0 {
+				l++
+			}
+			if l < r && nums[l]+nums[r]+num == 0 {
+				result = append(result, []int{num, nums[l], nums[r]})
+				for l < r && nums[l] == nums[l+1] {
+					l++
+				}
+				for l < r && nums[r] == nums[r-1] {
+					r--
+				}
+				l++
+				r--
+			}
+		}
+	}
+	return result
+}

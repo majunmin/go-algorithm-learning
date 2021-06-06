@@ -11,7 +11,39 @@ import (
 )
 
 func maxSlidingWindow(nums []int, k int) []int {
-	return priorityQueue(nums, k)
+	//return priorityQueue(nums, k)
+	return queueSolution(nums, k)
+}
+
+func queueSolution(nums []int, k int) []int {
+
+	length := len(nums)
+	if k == 1 {
+		return nums
+	}
+	// store  index
+	var queue []int
+	push := func(i int) {
+		for len(queue) > 0 && nums[queue[len(queue)-1]] < nums[i] {
+			queue = queue[:len(queue)-1]
+		}
+		queue = append(queue, i)
+	}
+
+	for i := 0; i < k; i++ {
+		push(i)
+	}
+
+	var ans []int
+	ans = append(ans, nums[queue[0]])
+	for i := k; i < length; i++ {
+		push(i)
+		if queue[0] <= i-k {
+			queue = queue[1:]
+		}
+		ans = append(ans, nums[queue[0]])
+	}
+	return ans
 }
 
 // 队列里面存的是索引
@@ -50,39 +82,39 @@ type hp struct {
 	sort.IntSlice
 }
 
-// 实现大根堆 or 小根堆
-func (h hp) Less(i, j int) bool {
-	return a[h.IntSlice[i]] > a[h.IntSlice[j]]
+func (hp *hp) Push(x interface{}) {
+	hp.IntSlice = append(hp.IntSlice, x.(int))
 }
 
-func (h *hp) Push(x interface{}) {
-	h.IntSlice = append(h.IntSlice, x.(int))
+func (hp hp) Less(i, j int) bool {
+	return a[hp.IntSlice[i]] > a[hp.IntSlice[j]]
 }
 
-func (h *hp) Pop() interface{} {
-	lastIdx := len(h.IntSlice) - 1
-	val := h.IntSlice[lastIdx]
-	h.IntSlice = h.IntSlice[:lastIdx]
-	return val
+func (hp *hp) Pop() interface{} {
+	length := len(hp.IntSlice)
+	v := hp.IntSlice[length-1]
+	hp.IntSlice = hp.IntSlice[:length-1]
+	return v
 }
 
 func priorityQueue(nums []int, k int) []int {
-	a = nums
-	h := &hp{}
+
+	window := &hp{make([]int, k)}
 	for i := 0; i < k; i++ {
-		h.Push(i)
+		window.IntSlice[i] = i
 	}
-	heap.Init(h)
+	heap.Init(window)
 
-	result := make([]int, 1, len(nums)-k+1)
-	result[0] = nums[h.IntSlice[0]]
+	length := len(nums)
+	ans := make([]int, 1, length-k+1)
+	ans[0] = nums[window.IntSlice[0]]
 
-	for i := k; i < len(nums); i++ {
-		heap.Push(h, i)
-		for h.IntSlice[0] <= i- k {
-			heap.Pop(h)
+	for i := k; i < length; i++ {
+		heap.Push(window, i)
+		for window.IntSlice[0] <= i-k {
+			heap.Pop(window)
 		}
-		result = append(result, nums[h.IntSlice[0]])
+		ans = append(ans, nums[window.IntSlice[0]])
 	}
-	return result
+	return ans
 }

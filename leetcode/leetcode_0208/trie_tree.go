@@ -3,7 +3,7 @@
   @date: 2021/1/23
   @note:
 **/
-package leetcode_208
+package leetcode_0208
 
 type Trie struct {
 	isEnd bool

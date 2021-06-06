@@ -5,6 +5,55 @@
 **/
 package leetcode_0056
 
+func merge1(intervals [][]int) [][]int {
+	if len(intervals) == 0 {
+		return intervals
+	}
+	quickSort(intervals, 0, len(intervals)-1)
+
+	var result [][]int
+	pre := intervals[0]
+	for i := 1; i < len(intervals); i++ {
+		if pre[1] >= intervals[i][0] && pre[1] <= intervals[i][1] {
+			pre[1] = intervals[i][1]
+		} else if pre[1] < intervals[i][0] {
+			result = append(result, pre)
+			pre = intervals[i]
+		}
+		//if pre[1] > intervals[i][1] {
+		//} else if pre[1] >= intervals[i][0] {
+		//	pre[1] =  intervals[i][1]
+		//} else {
+		//	result = append(result, []int{pre[0], pre[1]})
+		//	pre = intervals[i]
+		//}
+	}
+	result = append(result, []int{pre[0], pre[1]})
+	return result
+}
+
+func quickSort(intervals [][]int, left, right int) {
+	if left >= right {
+		return
+	}
+	idx := partitionx(intervals, left, right)
+	quickSort(intervals, left, idx-1)
+	quickSort(intervals, idx+1, right)
+	return
+}
+
+func partitionx(intervals [][]int, left, right int) int {
+	pivot, cnt := right, left
+	for i := left; i < right; i++ {
+		if intervals[i][0] < intervals[pivot][0] {
+			intervals[i], intervals[cnt] = intervals[cnt], intervals[i]
+			cnt++
+		}
+	}
+	intervals[cnt], intervals[pivot] = intervals[pivot], intervals[cnt]
+	return cnt
+}
+
 // 合并区间
 func merge(intervals [][]int) [][]int {
 	length := len(intervals)

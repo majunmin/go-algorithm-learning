@@ -6,7 +6,7 @@
 package leetcode_212
 
 import (
-	"go-algorithm-learning/leetcode/leetcode_208"
+	"go-algorithm-learning/leetcode/leetcode_0208"
 )
 
 var directions = [][]int{
@@ -18,7 +18,7 @@ var directions = [][]int{
 
 func findWords(board [][]byte, words []string) []string {
 
-	trie := leetcode_208.Constructor()
+	trie := leetcode_0208.Constructor()
 	for _, word := range words {
 		trie.Insert(word)
 	}
@@ -45,7 +45,7 @@ func findWords(board [][]byte, words []string) []string {
 	return res
 }
 
-func dfs(board [][]byte, i int, j int, curWord string, visits [][]bool, trie leetcode_208.Trie, result *map[string]struct{}) {
+func dfs(board [][]byte, i int, j int, curWord string, visits [][]bool, trie leetcode_0208.Trie, result *map[string]struct{}) {
 	// terminate
 	if !trie.StartsWith(curWord) {
 		return

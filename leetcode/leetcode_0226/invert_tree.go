@@ -9,10 +9,15 @@ import "go-algorithm-learning/leetcode/common"
 //recursive
 //https://leetcode-cn.com/problems/invert-binary-tree/
 func invertTree(root *common.TreeNode) *common.TreeNode {
-	// terminate condition
-	if root == nil || root.Left == nil && root.Right == nil {
-		return root
+	return recurisiveSolution(root)
+}
+
+func recurisiveSolution(root *common.TreeNode) *common.TreeNode {
+	// terminate
+	if root == nil {
+		return nil
 	}
-	root.Left, root.Right = invertTree(root.Right), invertTree(root.Left)
+	//  process invert
+	root.Right, root.Left = invertTree(root.Left), invertTree(root.Right)
 	return root
 }

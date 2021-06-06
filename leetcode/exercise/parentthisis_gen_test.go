@@ -6,11 +6,12 @@
 package exercise
 
 import (
-	"fmt"
 	"testing"
 )
 
 func TestGenParthen(t *testing.T) {
-	res := genParenthesis2(4)
-	fmt.Println(res)
+	t.Log(genParentheses(1))
+	t.Log(genParentheses(2))
+	t.Log(genParentheses(3))
+	t.Log(genParentheses(4))
 }

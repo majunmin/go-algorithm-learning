@@ -10,7 +10,20 @@ import (
 )
 
 func preorderTraversal(root *common.TreeNode) []int {
-	return preorderIter(root)
+	var result []int
+	stack := make([]*common.TreeNode, 0)
+	node := root
+	for len(stack) > 0 || node != nil {
+		for node != nil {
+			result = append(result, node.Val)
+			stack = append(stack, node)
+			node = node.Left
+		}
+		node = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		node = node.Right
+	}
+	return result
 }
 
 // 解法2 迭代算法

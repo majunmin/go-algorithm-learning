@@ -3,7 +3,7 @@
   @date: 2021/1/28
   @note:
 **/
-package leetcode_51
+package leetcode_0051
 
 // 有个公式需要记住  方便分析 位运算 和 后面的 set 解法
 //  na = n - 1 - row + col
